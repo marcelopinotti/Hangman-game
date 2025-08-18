@@ -10,6 +10,16 @@ public class Main {
         var letter = Stream.of(args).map(a -> a.toLowerCase().charAt(0))
                 .map(HangmanChar::new).toList();
         System.out.println(letter);
-        System.out.println(new HangmanGame(letter));
+        var hangmanGame = new HangmanGame(letter);
+        System.out.println(hangmanGame);
+        hangmanGame.inputCharacter('t');
+        System.out.println(hangmanGame);
+        hangmanGame.inputCharacter('e');
+        System.out.println(hangmanGame);
+        hangmanGame.inputCharacter('d');
+        System.out.println(hangmanGame);
+        hangmanGame.inputCharacter('d');
+        System.out.println(hangmanGame);
+        hangmanGame.inputCharacter('e');
     }
 }
