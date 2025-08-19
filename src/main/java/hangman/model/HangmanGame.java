@@ -1,6 +1,7 @@
 package hangman.model;
 
 import hangman.exception.GameIsFinishedException;
+import hangman.exception.LetterAlreadyInputtedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,10 @@ public class HangmanGame {
     private String hangman;
     private HangmanGameStatus status;
 
+    public HangmanGameStatus getStatus() {
+        return status;
+    }
+
     public HangmanGame(List<HangmanChar> letters) {
         var whiteSpaces = " ".repeat(letters.size());
         var letterSpace = "-".repeat(letters.size());
@@ -46,6 +51,12 @@ public class HangmanGame {
         var found = this.characters.stream()
                 .filter(c -> c.getLetter() == letter).toList();
 
+        if (this.failAttempts.contains(letter)) {
+            throw new LetterAlreadyInputtedException("A letra '"+ letter + "' já foi digitada!");
+
+        }
+
+
         if (found.isEmpty()) {
             failAttempts.add(letter);
             if(failAttempts.size() <= 6){
@@ -54,11 +65,11 @@ public class HangmanGame {
             rebuildHangman(this.hangmanPaths.removeFirst());
             return;
         }
-        this.characters.forEach(c -> {
-            if (c.getLetter() == found.getFirst().getLetter()) {
-                c.enableVisibility();
-            }
-        });
+
+        if (found.getFirst().isVisible()) {
+            throw new LetterAlreadyInputtedException("A letra '"+ letter + "' já foi digitada!");
+
+        }
         if (this.characters.stream().noneMatch(HangmanChar::isInvisible)) {
             this.status = WIN;
         }
