@@ -1,4 +1,4 @@
-# Hangman-game
+# Hangman-game (Jogo da forca em Java)
 
 Jogo de forca (Hangman) em modo console. O objetivo é adivinhar a palavra secreta informando letras, enquanto acompanha o status do jogo e o progresso da palavra.
 
